@@ -1,0 +1,22 @@
+# Don't publish these to npm
+erp-test.sh
+TERMUX-README.md
+.gitattributes
+.git/
+.github/
+
+# Testing and dev files
+test/
+tests/
+*.test.js
+*.spec.js
+
+# Documentation (keep README.md)
+docs/
+
+# CAPTCHA images
+captcha.png
+
+# IDE
+.vscode/
+.idea/

@@ -1,0 +1,40 @@
+{
+  "name": "aitm-erp",
+  "version": "1.0.0",
+  "description": "CLI tool to interact with AITM ERP system",
+  "main": "index.js",
+  "bin": {
+    "aitm-erp": "./index.js"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "erp",
+    "cli",
+    "attendance",
+    "student",
+    "termux"
+  ],
+  "author": "justfsl50",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.6.5",
+    "chalk": "^4.1.2",
+    "inquirer": "^8.2.5",
+    "ora": "^5.4.1",
+    "open": "^8.4.2"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/justfsl50/api_test.git"
+  },
+  "bugs": {
+    "url": "https://github.com/justfsl50/api_test/issues"
+  },
+  "homepage": "https://github.com/justfsl50/api_test#readme"
+}
