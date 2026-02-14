@@ -102,7 +102,9 @@ class ERPClient {
             captcha: captcha
           });
 
-          if (loginResp.success) {
+          console.log(chalk.gray(`Response: ${JSON.stringify(loginResp)}`)); // Debug log
+
+          if (loginResp.success === true || loginResp.success === 'true') {
             loginSpinner.succeed(chalk.green('Login successful!'));
             loggedIn = true;
             
@@ -118,7 +120,8 @@ class ERPClient {
             console.log(chalk.green('========================================\n'));
           }
         } catch (error) {
-          loginSpinner.fail(chalk.red('Login failed. Refreshing CAPTCHA...'));
+          loginSpinner.fail(chalk.red(`Login failed: ${error.message}`));
+          console.log(chalk.gray(`Error details: ${JSON.stringify(error.response?.data || error.message)}`));
           
           try {
             const refreshResp = await this.callAPI('POST', '/api/refresh-captcha', {
@@ -385,7 +388,7 @@ class ERPClient {
 
   async run() {
     console.log(chalk.bold.cyan('\n╔════════════════════════════════════╗'));
-    console.log(chalk.bold.cyan('║        AITM ERP CLI - v1.0.0       ║'));
+    console.log(chalk.bold.cyan('║        AITM ERP CLI - v1.0.1       ║'));
     console.log(chalk.bold.cyan('╚════════════════════════════════════╝\n'));
 
     await this.healthCheck();

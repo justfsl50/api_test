@@ -1,10 +1,10 @@
 {
   "name": "aitm-erp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "CLI tool to interact with AITM ERP system",
   "main": "index.js",
   "bin": {
-    "aitm-erp": "index.js"
+    "aitm-erp": "./index.js"
   },
   "scripts": {
     "start": "node index.js",
