@@ -4,12 +4,12 @@ A beautiful command-line interface to interact with the AITM ERP system.
 
 ## Features
 
-✨ **Interactive CLI** with beautiful menus  
-🎨 **Color-coded output** for better readability  
-📊 **Complete API coverage** - all endpoints supported  
-🖼️ **Auto CAPTCHA handling** - opens images automatically  
-⚡ **Fast & efficient** - built with Node.js  
-📱 **Cross-platform** - works on Windows, macOS, Linux, and Termux
+- **Interactive menu** - OpenClaw-style selection with arrow keys
+- **Axis Colleges branding** - Gradient banner and clean layout
+- **Profile, Attendance, Subjects, Timetable** - Full API coverage
+- **Bunk Calculator** - See how many classes you can bunk
+- **In-terminal CAPTCHA** - View CAPTCHA in terminal (or fallback to file on Windows)
+- **Cross-platform** - Works on Windows, macOS, Linux, and Termux
 
 ## Installation
 
@@ -19,7 +19,7 @@ A beautiful command-line interface to interact with the AITM ERP system.
 npm install -g aitm-erp
 ```
 
-Then run anywhere:
+Then run:
 ```bash
 aitm-erp
 ```
@@ -28,10 +28,6 @@ aitm-erp
 
 ```bash
 npm install aitm-erp
-```
-
-Run with:
-```bash
 npx aitm-erp
 ```
 
@@ -46,52 +42,42 @@ npm start
 
 ## Usage
 
-Simply run:
 ```bash
 aitm-erp
 ```
 
-The CLI will guide you through:
-1. **Health Check** - Verify server status
-2. **Login** - Enter credentials and solve CAPTCHA
-3. **Interactive Menu** - Choose from various options:
-   - 📋 Profile information
-   - 📊 Dashboard details
-   - 📈 Overall attendance
-   - 📚 Subjects list
-   - 📊 All subjects with attendance
-   - 🗓️ Weekly timetable
-   - 🕐 Last visit info
-   - 📖 Subject-wise attendance
-   - 📅 Today's schedule with attendance
+Run the CLI and use arrow keys to select:
+- Profile
+- Attendance
+- Subjects
+- Timetable
+- Today's Schedule
+- Bunk Calculator
+- Last Visit
+- Help
+- Logout
+
+### Flags
+
+- `--no-color` - Disable ANSI colors
+- `-V` or `--version` - Print version
 
 ## For Termux Users
 
-### Installation on Termux
-
 ```bash
-# Update packages
 pkg update && pkg upgrade -y
-
-# Install Node.js
 pkg install nodejs-lts -y
-
-# Install the CLI
 npm install -g aitm-erp
-
-# Run it
 aitm-erp
 ```
 
-### CAPTCHA Viewing on Termux
+### CAPTCHA on Termux
 
-The CAPTCHA image will be saved as `captcha.png` in your current directory. The app will try to open it automatically, but if that fails:
+The CAPTCHA is displayed in the terminal when supported. If not, it's saved as `captcha.png`:
 
 ```bash
 termux-open captcha.png
 ```
-
-Or use a file manager to view `/data/data/com.termux/files/home/captcha.png`
 
 ## Requirements
 
@@ -99,132 +85,48 @@ Or use a file manager to view `/data/data/com.termux/files/home/captcha.png`
 - Internet connection
 - Valid ERP credentials
 
-## Dependencies
-
-- **axios** - HTTP client
-- **chalk** - Terminal styling
-- **inquirer** - Interactive prompts
-- **ora** - Loading spinners
-- **open** - Open files/URLs
-
-## Screenshots
+## Project Structure
 
 ```
-╔════════════════════════════════════╗
-║        AITM ERP CLI - v1.0.0       ║
-╚════════════════════════════════════╝
-
-=== Health Check ===
-Status: healthy | Uptime: 12345s | Sessions: 5
-
-=== Login ===
-? Enter your roll number: 12345678
-? Enter your password: ********
-
-✔ Session: abc123-def456-ghi789
-
-========================================
-  LOGIN SUCCESSFUL
-========================================
-  Name:     John Doe
-  CRN:      12345678
-  Roll No:  123/CS/21
-  Program:  B.Tech
-  Branch:   Computer Science
-  Semester: 5
-========================================
-
-? Choose an option: (Use arrow keys)
-❯ 📋 Profile
-  📊 Dashboard
-  📈 Overall Attendance
-  📚 Subjects List
-  📊 All Subjects with Attendance
-  🗓️  Timetable
-  🕐 Last Visit
-  📖 Subject-wise Attendance
-  📅 Today's Timetable + Attendance
-  🚪 Exit
-```
-
-## Development
-
-### Project Structure
-
-```
-api_test/
-├── index.js           # Main CLI application
-├── package.json       # Package configuration
-├── README.md          # This file
-├── .gitattributes     # Git line ending settings
-├── erp-test.sh        # Legacy Bash script (for reference)
-└── TERMUX-README.md   # Termux-specific docs
-```
-
-### Scripts
-
-```bash
-# Start the CLI
-npm start
-
-# Run in development
-node index.js
+aitm-erp/
+├── api/
+│   └── erpClient.js   # ERPClient, session persistence
+├── commands/
+│   ├── login.js       # Login flow
+│   ├── help.js        # Help screen
+│   └── attendance.js  # ensureSession
+├── ui/
+│   ├── palette.js     # Colors
+│   ├── banner.js      # figlet + gradient banner
+│   ├── box.js         # boxen wrappers
+│   └── table.js       # CLI-style formatters
+├── index.js           # Entry point
+└── package.json
 ```
 
 ## Troubleshooting
 
-### Command not found after global install
+### CAPTCHA won't open (Windows)
 
-Make sure npm's global bin directory is in your PATH:
+The CAPTCHA is saved as `captcha.png` in your current directory:
 
 ```bash
-npm config get prefix
+start captcha.png
 ```
-
-Add this to your PATH in `~/.bashrc` or `~/.zshrc`:
-```bash
-export PATH="$PATH:$(npm config get prefix)/bin"
-```
-
-### CAPTCHA won't open
-
-The CAPTCHA is saved as `captcha.png` in your current directory. Open it manually:
-
-- **Windows**: `start captcha.png`
-- **macOS**: `open captcha.png`
-- **Linux**: `xdg-open captcha.png`
-- **Termux**: `termux-open captcha.png`
 
 ### Connection timeout
 
-Check your internet connection and ensure the backend server is accessible:
-```
-https://erptestbackend-production.up.railway.app/health
-```
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+Check your internet connection. Backend: `https://erptestbackend-production.up.railway.app/health`
 
 ## License
 
-MIT License - feel free to use this project however you'd like!
+MIT License
 
 ## Author
 
-**justfsl50**  
-GitHub: [@justfsl50](https://github.com/justfsl50)
+**justfsl50** - [GitHub](https://github.com/justfsl50)
 
 ## Links
 
-- [GitHub Repository](https://github.com/justfsl50/api_test)
-- [Report Issues](https://github.com/justfsl50/api_test/issues)
 - [NPM Package](https://www.npmjs.com/package/aitm-erp)
-
----
-
-Made with ❤️ for students
+- [GitHub Repository](https://github.com/justfsl50/api_test)
