@@ -4,7 +4,7 @@
   "description": "CLI tool to interact with AITM ERP system",
   "main": "index.js",
   "bin": {
-    "aitm-erp": "./index.js"
+    "aitm-erp": "index.js"
   },
   "scripts": {
     "start": "node index.js",
